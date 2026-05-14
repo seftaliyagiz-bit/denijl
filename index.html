@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>De Nijl — Pizza, Kebab, Pasta & Kapsalon · Naamsestraat 66 · Leuven</title>
+  <meta name="description" content="De Nijl is een Leuvense klassieker op de Naamsestraat. Pizza, kebab, kapsalon en pasta met grote porties en lage prijzen. Egyptisch thema. Open tot laat." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --navy:      #0a1a3d;
+      --navy-card: #0d2247;
+      --navy-mid:  #122a55;
+      --red:       #c0392b;
+      --red-dark:  #9b2d22;
+      --gold:      #d4a017;
+      --gold-lt:   #e8bc3a;
+      --green:     #1e8449;
+      --white:     #ffffff;
+      --cream:     #f5f0e8;
+      --gray:      #aaa;
+      --shadow:    0 4px 28px rgba(0,0,0,0.45);
+      --radius:    10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      color: var(--cream);
+      background: var(--navy);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3 { line-height: 1.2; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+      border-bottom: 1px solid rgba(212,160,23,0.2);
+    }
+
+    .nav-logo { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-logo .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+    .nav-logo .logo-sub {
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      color: rgba(212,160,23,0.65);
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.87rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: var(--cream);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-right { display: flex; align-items: center; gap: 1.1rem; }
+
+    .lang-toggle {
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 20px;
+      padding: 4px 12px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      user-select: none;
+    }
+    .lang-toggle:hover { background: var(--gold); color: var(--navy); }
+
+    .btn-nav {
+      background: var(--red);
+      color: var(--white) !important;
+      border-radius: 6px;
+      padding: 8px 18px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: background 0.2s;
+    }
+    .btn-nav:hover { background: var(--red-dark); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--cream);
+      border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 580px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background-image: url('images/hero.png');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10,26,61,0.65);
+    }
+
+    /* Egyptian gold border decoration */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(212,160,23,0.35);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-corner {
+      position: absolute;
+      width: 36px; height: 36px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.65;
+      z-index: 2;
+    }
+    .hero-corner.tl { top: 14px; left: 14px; border-width: 2px 0 0 2px; }
+    .hero-corner.tr { top: 14px; right: 14px; border-width: 2px 2px 0 0; }
+    .hero-corner.bl { bottom: 14px; left: 14px; border-width: 0 0 2px 2px; }
+    .hero-corner.br { bottom: 14px; right: 14px; border-width: 0 2px 2px 0; }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 0 1.5rem;
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(212,160,23,0.15);
+      border: 1px solid rgba(212,160,23,0.5);
+      border-radius: 30px;
+      padding: 6px 18px;
+      font-size: 0.77rem;
+      color: var(--gold-lt);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(3.8rem, 10vw, 7.5rem);
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+    }
+
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.95rem, 2.2vw, 1.18rem);
+      color: var(--cream);
+      opacity: 0.9;
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.8rem, 1.8vw, 1rem);
+      color: var(--gold-lt);
+      opacity: 0.8;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.7rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.75);
+      letter-spacing: 0.05em;
+    }
+    .hero-icons span { white-space: nowrap; }
+
+    .hero-btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-red {
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 13px 30px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-red:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+    .btn-gold-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      padding: 11px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-gold-outline:hover { background: rgba(212,160,23,0.12); transform: translateY(-2px); }
+
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.79rem;
+      color: rgba(245,240,232,0.62);
+      letter-spacing: 0.08em;
+    }
+    .pulse-dot {
+      width: 8px; height: 8px;
+      background: #5ecb6e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.5); opacity: 0.5; }
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.2rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: rgba(212,160,23,0.45);
+      font-size: 1.1rem;
+      animation: bounce 2.5s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ── DEAL STRIP ── */
+    #deals {
+      background: var(--red);
+      padding: 4rem 5%;
+    }
+    .deals-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .deals-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .deal-card {
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius);
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .deal-card:hover { background: rgba(0,0,0,0.28); transform: translateY(-4px); }
+    .deal-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .deal-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.09em;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .deal-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--gold-lt);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .deal-card p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.78);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    /* ── MENU HIGHLIGHTS ── */
+    #highlights {
+      background: var(--white);
+      padding: 5.5rem 5%;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+    .section-header p {
+      font-size: 0.95rem;
+      color: #666;
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    #highlights .section-label { color: var(--red); }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto 2.5rem;
+    }
+    .highlight-card {
+      background: var(--white);
+      border: 2px solid var(--navy);
+      border-radius: var(--radius);
+      padding: 2.2rem 1.8rem;
+      box-shadow: 0 4px 20px rgba(10,26,61,0.10);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .highlight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 32px rgba(10,26,61,0.18);
+      border-color: var(--red);
+    }
+    .hl-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .highlight-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .highlight-card p {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .menu-cta { text-align: center; }
+    .menu-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--red);
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-bottom: 1.5px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .menu-cta a:hover { color: var(--navy); }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--navy);
+      padding: 5.5rem 5%;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .about-img img {
+      width: 100%;
+      border-radius: 12px;
+      border: 3px solid var(--gold);
+      box-shadow: 0 6px 32px rgba(0,0,0,0.4);
+    }
+    .about-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .about-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(212,160,23,0.75);
+      margin-bottom: 1.2rem;
+    }
+    .about-text p {
+      font-size: 0.93rem;
+      color: rgba(245,240,232,0.82);
+      font-weight: 300;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: center;
+      background: rgba(212,160,23,0.1);
+      border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 8px;
+      padding: 0.9rem 1.4rem;
+      min-width: 90px;
+    }
+    .stat-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.07em;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-lbl {
+      font-size: 0.72rem;
+      color: rgba(245,240,232,0.55);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── REVIEWS ── */
+    #reviews {
+      background: var(--white);
+      padding: 5rem 5%;
+    }
+    #reviews .section-header h2 { color: var(--navy); }
+    #reviews .section-label { color: var(--red); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto 2.5rem;
+    }
+    .review-card {
+      background: #f8f5f0;
+      border-radius: var(--radius);
+      padding: 2rem 1.8rem;
+      border: 1.5px solid rgba(10,26,61,0.1);
+      box-shadow: 0 3px 18px rgba(10,26,61,0.08);
+      position: relative;
+    }
+    .quote-mark {
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: rgba(212,160,23,0.18);
+      line-height: 1;
+    }
+    .review-stars { color: var(--gold); font-size: 1rem; margin-bottom: 0.9rem; letter-spacing: 0.1em; }
+    .review-card p {
+      font-size: 0.88rem;
+      color: #444;
+      font-style: italic;
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .review-source {
+      font-size: 0.74rem;
+      color: var(--red);
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .ta-btn-wrap { text-align: center; }
+    .btn-ta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 8px;
+      padding: 12px 28px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-ta:hover { background: var(--navy-mid); transform: translateY(-2px); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--navy);
+      padding: 5.5rem 5%;
+    }
+    #contact .section-header h2 { color: var(--cream); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-info { display: flex; flex-direction: column; }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(212,160,23,0.12);
+    }
+    .info-item:last-of-type { border-bottom: none; }
+    .info-item i { color: var(--gold); width: 18px; margin-top: 3px; font-size: 0.9rem; flex-shrink: 0; }
+    .info-item .info-text { font-size: 0.9rem; color: rgba(245,240,232,0.82); font-weight: 300; line-height: 1.6; }
+    .info-item .info-text strong { color: var(--cream); font-weight: 500; }
+    .info-item .info-text a { color: var(--gold); transition: opacity 0.2s; }
+    .info-item .info-text a:hover { opacity: 0.75; }
+
+    .map-wrap { margin-top: 2rem; }
+
+    .contact-form-wrap {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+    }
+    .contact-form-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.7rem;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      font-size: 0.74rem;
+      color: rgba(245,240,232,0.58);
+      font-weight: 400;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(245,240,232,0.28); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .btn-submit {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-submit:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .form-success {
+      display: none;
+      background: rgba(94,203,110,0.1);
+      border: 1px solid rgba(94,203,110,0.4);
+      border-radius: 8px;
+      padding: 14px 18px;
+      color: #8edd9a;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(212,160,23,0.25);
+      padding: 2.2rem 5%;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-logo .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--gold);
+    }
+    .footer-logo p { font-size: 0.7rem; color: rgba(212,160,23,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+    .footer-center { font-size: 0.76rem; color: rgba(245,240,232,0.35); text-align: center; line-height: 1.7; }
+    .footer-links { display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: flex-end; }
+    .footer-links a { font-size: 0.8rem; color: var(--gold); font-weight: 500; letter-spacing: 0.06em; transition: opacity 0.2s; }
+    .footer-links a:hover { opacity: 0.65; }
+
+    /* ── MOBILE NAV ── */
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--navy);
+      border-bottom: 2px solid var(--gold);
+      padding: 1.5rem 5%;
+      z-index: 999;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a { font-size: 1rem; font-weight: 500; color: var(--cream); letter-spacing: 0.06em; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links, .btn-nav { display: none; }
+      .hamburger { display: flex; }
+
+      .deals-grid      { grid-template-columns: 1fr 1fr; }
+      .highlights-grid { grid-template-columns: 1fr; }
+      .about-grid      { grid-template-columns: 1fr; gap: 2.5rem; }
+      .reviews-grid    { grid-template-columns: 1fr; }
+      .contact-grid    { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-inner    { flex-direction: column; text-align: center; align-items: center; }
+      .footer-links    { justify-content: center; }
+      .about-stats     { justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .deals-grid { grid-template-columns: 1fr; }
+      .hero-h1    { font-size: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo" aria-label="De Nijl home">
+    <span class="logo-name">De Nijl</span>
+    <span class="logo-sub">🏺 Pizza · Kebab · Kapsalon · Leuven</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#highlights" data-nl="Menu"      data-en="Menu">Menu</a></li>
+    <li><a href="#deals"      data-nl="Deals"     data-en="Deals">Deals</a></li>
+    <li><a href="#contact"    data-nl="Bezorging" data-en="Delivery">Bezorging</a></li>
+    <li><a href="#contact"    data-nl="Contact"   data-en="Contact">Contact</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="lang-toggle" id="langToggle">NL | EN</div>
+    <a href="https://www.denijlleuven.be/" target="_blank" rel="noopener" class="btn-nav" data-nl="Bestel nu" data-en="Order now">Bestel nu</a>
+    <div class="hamburger" id="hamburger" aria-label="Menu openen">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a href="#highlights" data-nl="Menu"      data-en="Menu">Menu</a>
+  <a href="#deals"      data-nl="Deals"     data-en="Deals">Deals</a>
+  <a href="#contact"    data-nl="Bezorging" data-en="Delivery">Bezorging</a>
+  <a href="#contact"    data-nl="Contact"   data-en="Contact">Contact</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner bl"></div>
+  <div class="hero-corner br"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🏺 <span data-nl="Naamsestraat 66 · Leuven · Egyptisch thema" data-en="Naamsestraat 66 · Leuven · Egyptian theme">Naamsestraat 66 · Leuven · Egyptisch thema</span></div>
+    <h1 class="hero-h1">De Nijl</h1>
+    <p class="hero-sub" data-nl="Pizza · Kebab · Pasta · Kapsalon — Grote porties — kleine prijzen" data-en="Pizza · Kebab · Pasta · Kapsalon — Big portions — small prices">Pizza · Kebab · Pasta · Kapsalon<br>Grote porties — kleine prijzen</p>
+    <p class="hero-tagline" data-nl="De kebabtovenaar van Leuven 🏺" data-en="The kebab magician of Leuven 🏺">De kebabtovenaar van Leuven 🏺</p>
+    <div class="hero-icons">
+      <span>🍕 Pizza</span>
+      <span>🥙 Kebab</span>
+      <span>🍟 Kapsalon</span>
+      <span>🌙 <span data-nl="Laat open" data-en="Open late">Laat open</span></span>
+    </div>
+    <div class="hero-btns">
+      <a href="#highlights" class="btn-red" data-nl="Bekijk ons menu" data-en="View our menu">Bekijk ons menu</a>
+      <a href="https://www.denijlleuven.be/" target="_blank" rel="noopener" class="btn-gold-outline" data-nl="Bestel online" data-en="Order online">Bestel online</a>
+    </div>
+    <div class="hero-status">
+      <span class="pulse-dot"></span>
+      <span data-nl="Elke dag open · tot laat" data-en="Open every day · until late">Elke dag open · tot laat</span>
+    </div>
+  </div>
+  <div class="hero-scroll"><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<!-- ── DEAL STRIP ── -->
+<section id="deals">
+  <div class="deals-header fade-up">
+    <h2 data-nl="🔥 Menu Deals — Alles inclusief!" data-en="🔥 Menu Deals — All inclusive!">🔥 Menu Deals — Alles inclusief!</h2>
+  </div>
+  <div class="deals-grid">
+    <div class="deal-card fade-up">
+      <div class="deal-icon">🥙</div>
+      <h3>Menu Durum</h3>
+      <div class="deal-price">€9.50</div>
+      <p data-nl="Durum + friet + frisdrank" data-en="Durum + fries + soft drink">Durum + friet + frisdrank</p>
+    </div>
+    <div class="deal-card fade-up">
+      <div class="deal-icon">🥙</div>
+      <h3>Menu Pita</h3>
+      <div class="deal-price">€9.50</div>
+      <p data-nl="Pita + friet + frisdrank" data-en="Pita + fries + soft drink">Pita + friet + frisdrank</p>
+    </div>
+    <div class="deal-card fade-up">
+      <div class="deal-icon">🍟</div>
+      <h3>Menu Kapsalon</h3>
+      <div class="deal-price">€11</div>
+      <p data-nl="Kapsalon + bijgerecht + drank" data-en="Kapsalon + side dish + drink">Kapsalon + bijgerecht + drank</p>
+    </div>
+    <div class="deal-card fade-up">
+      <div class="deal-icon">🍕</div>
+      <h3>Menu Pizza</h3>
+      <div class="deal-price">€11</div>
+      <p data-nl="Pizza + lookbroodje + drank" data-en="Pizza + garlic bread + drink">Pizza + lookbroodje + drank</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENU HIGHLIGHTS ── -->
+<section id="highlights">
+  <div class="section-header fade-up">
+    <span class="section-label" data-nl="Onze specialiteiten" data-en="Our specialities">Onze specialiteiten</span>
+    <h2 data-nl="Onze Specialiteiten" data-en="Our Specialities">Onze Specialiteiten</h2>
+    <p data-nl="Groot van portie, klein van prijs — vers bereid op de Naamsestraat" data-en="Big on portions, small on price — freshly prepared on Naamsestraat">Groot van portie, klein van prijs — vers bereid op de Naamsestraat</p>
+  </div>
+  <div class="highlights-grid">
+    <div class="highlight-card fade-up">
+      <div class="hl-icon">🍕</div>
+      <h3 data-nl="Pizza's" data-en="Pizzas">Pizza's</h3>
+      <p data-nl="Van Margherita tot onze eigen Pizza de Nijl met pitavlees. Meer dan 20 varianten, allemaal vers uit de oven. Vanaf €8." data-en="From Margherita to our own Pizza de Nijl with pita meat. Over 20 varieties, all fresh from the oven. From €8.">Van Margherita tot onze eigen Pizza de Nijl met pitavlees. Meer dan 20 varianten, allemaal vers uit de oven. Vanaf €8.</p>
+    </div>
+    <div class="highlight-card fade-up">
+      <div class="hl-icon">🥙</div>
+      <h3 data-nl="Döner &amp; Kapsalon" data-en="Döner &amp; Kapsalon">Döner &amp; Kapsalon</h3>
+      <p data-nl="Grote porties döner, durum en pita. Onze befaamde kapsalon om 5 uur 's nachts — een Leuvense traditie! Vanaf €8." data-en="Large portions döner, durum and pita. Our famous kapsalon at 5AM — a Leuven tradition! From €8.">Grote porties döner, durum en pita. Onze befaamde kapsalon om 5 uur 's nachts — een Leuvense traditie! Vanaf €8.</p>
+    </div>
+    <div class="highlight-card fade-up">
+      <div class="hl-icon">🍝</div>
+      <h3 data-nl="Pasta" data-en="Pasta">Pasta</h3>
+      <p data-nl="Spaghetti bolognaise, carbonara en pesto — simpel, lekker en betaalbaar." data-en="Spaghetti bolognaise, carbonara and pesto — simple, delicious and affordable.">Spaghetti bolognaise, carbonara en pesto — simpel, lekker en betaalbaar.</p>
+    </div>
+  </div>
+  <div class="menu-cta fade-up">
+    <a href="https://www.denijlleuven.be/" target="_blank" rel="noopener">
+      <span data-nl="Volledig menu &amp; online bestellen" data-en="Full menu &amp; order online">Volledig menu &amp; online bestellen</span>
+      <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img fade-up">
+      <img src="images/food-1.png" alt="De Nijl Leuven gerecht" loading="lazy" />
+    </div>
+    <div class="about-text fade-up">
+      <span class="section-label" data-nl="Over ons" data-en="About us">Over ons</span>
+      <h2 data-nl="De kebabtovenaar van de Naamsestraat." data-en="The kebab magician of Naamsestraat.">De kebabtovenaar van de Naamsestraat.</h2>
+      <p class="about-sub" data-nl="Groot van portie, klein van prijs — altijd." data-en="Big on portions, small on price — always.">Groot van portie, klein van prijs — altijd.</p>
+      <p data-nl="De Nijl is een Leuvense klassieker op de Naamsestraat. Bekend om het unieke Egyptische thema, de grote porties en de eerlijke prijzen. Van studenten tot nachtbrakers — iedereen is welkom bij De Nijl." data-en="De Nijl is a Leuven classic on Naamsestraat. Known for its unique Egyptian theme, generous portions and honest prices. From students to night owls — everyone is welcome at De Nijl.">De Nijl is een Leuvense klassieker op de Naamsestraat. Bekend om het unieke Egyptische thema, de grote porties en de eerlijke prijzen. Van studenten tot nachtbrakers — iedereen is welkom bij De Nijl.</p>
+      <p data-nl="Bestel online of kom gewoon langs — ook laat op de avond." data-en="Order online or just drop in — even late at night.">Bestel online of kom gewoon langs — ook laat op de avond.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-val">20+</span>
+          <span class="stat-lbl" data-nl="Pizza's" data-en="Pizzas">Pizza's</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">🏺</span>
+          <span class="stat-lbl" data-nl="Egyptisch thema" data-en="Egyptian theme">Egyptisch thema</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">🌙</span>
+          <span class="stat-lbl" data-nl="Laat open" data-en="Open late">Laat open</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section id="reviews">
+  <div class="section-header fade-up">
+    <span class="section-label" data-nl="Recensies" data-en="Reviews">Recensies</span>
+    <h2 data-nl="Wat onze klanten zeggen" data-en="What our customers say">Wat onze klanten zeggen</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card fade-up">
+      <div class="quote-mark">"</div>
+      <div class="review-stars">★★★★★</div>
+      <p>"Niks is beter dan een kapsalon van De Nijl om 5 uur 's nachts. Mijn leven is werkelijk verrijkt door meerdere malen De Nijl te bezoeken!"</p>
+      <div class="review-source">TripAdvisor</div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="quote-mark">"</div>
+      <div class="review-stars">★★★★</div>
+      <p>"Super lekker. Grote porties. Goede prijs voor de kebab. Geven veel vlees in hun kebab. Zeker een aanrader!"</p>
+      <div class="review-source">TripAdvisor</div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="quote-mark">"</div>
+      <div class="review-stars">★★★★</div>
+      <p>"For the price, the portion is big and there is enough meat. Big plus is a friendly owner, once you meet him."</p>
+      <div class="review-source">Wanderlog</div>
+    </div>
+  </div>
+  <div class="ta-btn-wrap fade-up">
+    <a href="https://www.tripadvisor.com/Restaurant_Review-g188643-d1482716-Reviews-De_Nijl-Leuven_Flemish_Brabant_Province_Flemish_Region.html" target="_blank" rel="noopener" class="btn-ta">
+      <i class="fas fa-external-link-alt"></i>
+      <span data-nl="Lees alle recensies op TripAdvisor" data-en="Read all reviews on TripAdvisor">Lees alle recensies op TripAdvisor</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="section-header fade-up">
+    <span class="section-label" data-nl="Vind ons" data-en="Find us">Vind ons</span>
+    <h2 data-nl="Contact &amp; Bezorging" data-en="Contact &amp; Delivery">Contact &amp; Bezorging</h2>
+  </div>
+  <div class="contact-grid">
+    <!-- Left: info + map -->
+    <div class="contact-info fade-up">
+      <div class="info-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div class="info-text"><strong>Naamsestraat 66, 3000 Leuven</strong></div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-phone"></i>
+        <div class="info-text"><a href="tel:+3216292111">+32 16 29 21 11</a></div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-globe"></i>
+        <div class="info-text"><a href="https://www.denijlleuven.be/" target="_blank" rel="noopener">denijlleuven.be</a></div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-clock"></i>
+        <div class="info-text">
+          <strong data-nl="Elke dag: 11:00 – 02:00" data-en="Every day: 11:00 – 02:00">Elke dag: 11:00 – 02:00</strong>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-star"></i>
+        <div class="info-text" data-nl="Egyptisch thema · Grote porties · Lage prijzen" data-en="Egyptian theme · Big portions · Low prices">Egyptisch thema · Grote porties · Lage prijzen</div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-motorcycle"></i>
+        <div class="info-text">
+          <a href="https://www.denijlleuven.be/" target="_blank" rel="noopener" data-nl="Bestel online via denijlleuven.be" data-en="Order online via denijlleuven.be">Bestel online via denijlleuven.be</a>
+          &nbsp;·&nbsp;
+          <a href="https://www.takeaway.com/" target="_blank" rel="noopener">Takeaway.com</a>
+        </div>
+      </div>
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=Naamsestraat+66,+3000+Leuven&output=embed"
+          width="100%"
+          height="300"
+          style="border:0;border-radius:10px;opacity:0.88;"
+          allowfullscreen
+          loading="lazy"
+          title="De Nijl op Google Maps">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Right: contact form -->
+    <div class="contact-form-wrap fade-up">
+      <h3 data-nl="Stuur een bericht" data-en="Send a message">Stuur een bericht</h3>
+      <form id="contactForm" novalidate>
+        <div class="form-group">
+          <label data-nl="Naam" data-en="Name">Naam</label>
+          <input type="text" id="cName" data-nl-placeholder="Uw naam" data-en-placeholder="Your name" placeholder="Uw naam" required />
+        </div>
+        <div class="form-group">
+          <label data-nl="Email" data-en="Email">Email</label>
+          <input type="email" id="cEmail" data-nl-placeholder="uw@email.be" data-en-placeholder="your@email.com" placeholder="uw@email.be" required />
+        </div>
+        <div class="form-group">
+          <label data-nl="Bericht" data-en="Message">Bericht</label>
+          <textarea id="cMsg" data-nl-placeholder="Uw vraag of bericht…" data-en-placeholder="Your question or message…" placeholder="Uw vraag of bericht…" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit" data-nl="Verstuur →" data-en="Send →">Verstuur →</button>
+        <div class="form-success" id="formSuccess" data-nl="Bedankt! We antwoorden zo snel mogelijk." data-en="Thanks! We'll get back to you soon.">
+          Bedankt! We antwoorden zo snel mogelijk.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-name">De Nijl 🏺</div>
+      <p data-nl="Pizza · Kebab · Kapsalon · Leuven" data-en="Pizza · Kebab · Kapsalon · Leuven">Pizza · Kebab · Kapsalon · Leuven</p>
+    </div>
+    <div class="footer-center">
+      © 2026 De Nijl &nbsp;·&nbsp; Naamsestraat 66 &nbsp;·&nbsp; 3000 Leuven<br />
+      <a href="tel:+3216292111" style="color:rgba(245,240,232,0.3)">+32 16 29 21 11</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.denijlleuven.be/" target="_blank" rel="noopener">denijlleuven.be</a>
+      <a href="https://www.tripadvisor.com/Restaurant_Review-g188643-d1482716-Reviews-De_Nijl-Leuven_Flemish_Brabant_Province_Flemish_Region.html" target="_blank" rel="noopener">TripAdvisor</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Language toggle ──
+  let currentLang = 'nl';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    document.title = lang === 'nl'
+      ? 'De Nijl — Pizza, Kebab, Pasta & Kapsalon · Naamsestraat 66 · Leuven'
+      : 'De Nijl — Pizza, Kebab, Pasta & Kapsalon · Naamsestraat 66 · Leuven';
+
+    document.querySelectorAll('[data-nl], [data-en]').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (val !== null) el.textContent = val;
+    });
+
+    document.querySelectorAll('[data-nl-placeholder], [data-en-placeholder]').forEach(el => {
+      const ph = el.getAttribute('data-' + lang + '-placeholder');
+      if (ph) el.placeholder = ph;
+    });
+
+    document.getElementById('langToggle').textContent = lang === 'nl' ? 'NL | EN' : 'EN | NL';
+
+    const fs = document.getElementById('formSuccess');
+    if (fs) { const msg = fs.getAttribute('data-' + lang); if (msg) fs.textContent = msg; }
+  }
+
+  document.getElementById('langToggle').addEventListener('click', () => {
+    applyLang(currentLang === 'nl' ? 'en' : 'nl');
+  });
+
+  // ── Hamburger ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // ── Scroll fade-up ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── Contact form ──
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name  = document.getElementById('cName').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const msg   = document.getElementById('cMsg').value.trim();
+    if (!name || !email || !msg) return;
+
+    const success = document.getElementById('formSuccess');
+    success.style.display = 'block';
+    this.querySelectorAll('input,textarea,button').forEach(el => el.disabled = true);
+    const txt = success.getAttribute('data-' + currentLang);
+    if (txt) success.textContent = txt;
+  });
+</script>
+</body>
+</html>
